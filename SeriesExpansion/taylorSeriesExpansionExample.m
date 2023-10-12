@@ -28,3 +28,23 @@ legend('residual O(x^8)', 'residual O(x^{10})'); title('Residual Expansion');
 % plot(t, abs(y6-y), '--r', t, abs(y8-y), '-.c', t, abs(y10-y), 'm'), grid;
 % legend('residual O(x^6)', 'residual O(x^8)', 'residual O(x^{10})'); title('Residual Expansion');
 
+% using common member formula
+common6 = taylorNth(t, 2);
+figure;
+plot(t, y, '-.c', t, common6, '-k'), grid;
+title('Common member formula approximation');
+legend('f(x)', 'approximation of f(x) with error O(x^6)')
+
+function value = taylorNth(x, N)
+    value = zeros(1, length(x));
+%     for i = 1:length(x)
+%          value(i) = x(i)^(4./3.0) - x(i)^2 + 1.0;
+%     end
+%     value = x.^(4.0/3.0) - x.^2 + 1.0;
+    for n = 0:N 
+        value = value + (-1)^n * 2*n^2 * x.^(2*n) / factorial(2*n);
+    end
+    value = value + 1;
+end
+
+
